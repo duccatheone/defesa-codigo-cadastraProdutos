@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#define MAX 100                 // capacidade maxima do estoque
-#define ARQUIVO "estoque.txt"   // arquivo onde os dados ficam salvos
+#define MAX 100                 
+#define ARQUIVO "estoque.txt"  
 
-// STRUCT: modela um produto do estoque
+
 typedef struct {
     int codigo;
     int quantidade;
@@ -14,8 +14,7 @@ typedef struct {
 // ARQUIVOS
 // ---------------------------------------------------------------
 
-// Le os produtos salvos no arquivo e devolve quantos foram lidos.
-// Se o arquivo ainda nao existe (primeira execucao), devolve 0.
+
 int carregarProdutos(Produto estoque[]) {
     FILE *arq = fopen(ARQUIVO, "r");
     int total = 0;
@@ -24,7 +23,7 @@ int carregarProdutos(Produto estoque[]) {
         return 0;
     }
 
-    // fscanf devolve 3 quando conseguiu ler os 3 campos de um produto
+   
     while (total < MAX &&
            fscanf(arq, "%d %d %f",
                   &estoque[total].codigo,
@@ -37,7 +36,7 @@ int carregarProdutos(Produto estoque[]) {
     return total;
 }
 
-// Grava todos os produtos do vetor no arquivo (um produto por linha).
+
 void salvarProdutos(Produto estoque[], int total) {
     FILE *arq = fopen(ARQUIVO, "w");
     int i;
@@ -61,7 +60,7 @@ void salvarProdutos(Produto estoque[], int total) {
 // BUSCA
 // ---------------------------------------------------------------
 
-// Busca linear: devolve a posicao do produto no vetor ou -1 se nao achar.
+
 int buscarProduto(Produto estoque[], int total, int codigo) {
     int i;
 
@@ -84,7 +83,7 @@ void exibirProduto(Produto p) {
     printf("Valor Total em Estoque: R$ %.2f\n", p.quantidade * p.preco);
 }
 
-// Cadastra novos produtos e devolve o novo total de produtos.
+
 int cadastrarProdutos(Produto estoque[], int total) {
     int quantidade_cadastro, i;
 
@@ -107,7 +106,7 @@ int cadastrarProdutos(Produto estoque[], int total) {
 
             printf("\nProduto %d:\n", total + 1);
 
-            // Repete ate o usuario digitar um codigo que ainda nao existe
+            
             do {
                 printf("Digite o codigo (ID numerico): ");
                 scanf("%d", &codigo);
@@ -128,7 +127,7 @@ int cadastrarProdutos(Produto estoque[], int total) {
             total++;
         }
 
-        salvarProdutos(estoque, total);   // persiste logo apos cadastrar
+        salvarProdutos(estoque, total);  
         printf("\nCadastro concluido e salvo em arquivo!\n");
     }
 
@@ -165,8 +164,8 @@ void exibirRelatorio(Produto estoque[], int total) {
 // ---------------------------------------------------------------
 
 int main() {
-    Produto estoque[MAX];                     // vetor de structs
-    int total_produtos = carregarProdutos(estoque);  // recupera execucao anterior
+    Produto estoque[MAX];                    
+    int total_produtos = carregarProdutos(estoque);  
     int opcao;
 
     if (total_produtos > 0) {
@@ -220,7 +219,7 @@ int main() {
 
     } while (opcao != 4);
 
-    salvarProdutos(estoque, total_produtos);  // garante que tudo foi salvo
+    salvarProdutos(estoque, total_produtos); 
     printf("\nPrograma encerrado.\n");
     return 0;
 }
